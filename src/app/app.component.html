@@ -1,0 +1,150 @@
+<div class="calculator">
+  <div class="row form-group">
+    <div class="col-12 bg-primary text-light p-2"><h4>Payment Plan</h4></div>
+  </div>
+  <div class="row form-group">
+    <div class="col-5">Mortgage Amount</div>
+    <div class="col-7">
+      <div class="input-group">
+        <span class="input-group-text" id="basic-addon1">$</span>
+        <input
+          type="text"
+          class="form-control"
+          aria-label="Mortgage Amount"
+          [(ngModel)]="plan.amount"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-5">Interest Rate</div>
+    <div class="col-7">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          aria-label="Interest Rate"
+          [(ngModel)]="plan.interestRate"
+        />
+        <span class="input-group-text" id="basic-addon1">%</span>
+      </div>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-5">Amortization Period</div>
+    <div class="col-7">
+      <div class="row">
+        <div class="col-6">
+          <select
+            class="form-control"
+            aria-label="Years"
+            [(ngModel)]="plan.amyear"
+          >
+            <option selected>Select</option>
+            <option *ngFor="let opt of amYearsOptions" value="{{ opt.value }}">
+              {{ opt.label }}
+            </option>
+          </select>
+        </div>
+        <div class="col-6">
+          <select
+            class="form-control"
+            aria-label="Months"
+            [(ngModel)]="plan.amMonth"
+          >
+            <option selected>Select</option>
+            <option *ngFor="let opt of amMonthsOptions" value="{{ opt.value }}">
+              {{ opt.label }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-5">Payment Frequency</div>
+    <div class="col-7">
+      <select
+        class="form-control"
+        aria-label="Payment Frequency"
+        [(ngModel)]="plan.paymentFreq"
+      >
+        <option selected>Select</option>
+        <option *ngFor="let opt of paymentFreqOptions" value="{{ opt.value }}">
+          {{ opt.label }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-5">Term</div>
+    <div class="col-7">
+      <select class="form-control" aria-label="Term" [(ngModel)]="plan.term">
+        <option selected>Select</option>
+        <option *ngFor="let opt of termYearsOptions" value="{{ opt.value }}">
+          {{ opt.label }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-12">
+      <button type="button" class="btn btn-primary" (click)="calculate()">
+        Calculate
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="summary" *ngIf="calculated">
+  <div class="text-center"><h2>Calculation Summary</h2></div>
+  <table
+    class="table table-striped table-bordered"
+    style="border-collapse: collapse"
+  >
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Term</th>
+        <th>Amortization Period</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Number of Payments</td>
+        <td>{{cal.termPayments}}</td>
+        <td>{{cal.amPayments}}</td>
+      </tr>
+      <tr>
+        <td>Mortgage Payment</td>
+        <td>{{cal.termAmount | currency}}</td>
+        <td>{{cal.amAmount | currency}}</td>
+      </tr>
+      <tr>
+        <td>Prepayment</td>
+        <td>{{cal.termPrePayment | currency}}</td>
+        <td>{{cal.amPrePayment | currency}}</td>
+      </tr>
+      <tr>
+        <td>Principal Payments</td>
+        <td>{{cal.termprinciple | currency}}</td>
+        <td>{{cal.amPrinciple | currency}}</td>
+      </tr>
+      <tr>
+        <td>Interest Payments</td>
+        <td>{{cal.termInterest | currency}}</td>
+        <td>{{cal.amInterest | currency}}</td>
+      </tr>
+      <tr>
+        <td>Total Cost</td>
+        <td>{{cal.termCost | currency}}</td>
+        <td>{{cal.amCost | currency}}</td>
+      </tr>
+      <!-- <tr>
+        <td>Interest Savings with a Non-Monthly Payment Plan</td>
+        <td>{{cal.termAmount}}</td>
+        <td>{{cal.amAmount}}</td>
+      </tr> -->
+    </tbody>
+  </table>
+</div>

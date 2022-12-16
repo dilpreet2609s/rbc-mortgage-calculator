@@ -1,0 +1,11 @@
+.calculator{
+    width: 40%;
+    margin: 5% auto;
+    border: 1px solid;
+    padding: 0 15px;
+}
+.summary{
+    width: 60%;
+    margin: 5% auto;
+    padding: 0 15px;
+}
